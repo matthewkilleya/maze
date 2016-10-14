@@ -14,7 +14,7 @@ from collections import defaultdict
 from PyQt5.QtWidgets import QApplication
 
 from maze import Maze, Game, game_repeater
-from goodies import RandomGoody
+from goodies import RandomGoody,MattGoody
 from baddies import RandomBaddy
 from gui import GameViewer
 
@@ -33,7 +33,8 @@ EXAMPLE_MAZE = Maze(10, 10, "0001010000"
 def text_example():
     ''' Prints the state of the game to stdout after each round of turns '''
 
-    goody0 = RandomGoody()
+    goody0 = MattGoody()
+    #goody0 = RandomGoody()
     goody1 = RandomGoody()
     baddy = RandomBaddy()
 
@@ -49,7 +50,10 @@ def stats_example(total_games):
     ''' Plays many games, printing cumulative and final stats '''
 
     results = defaultdict(int)
-    for game_number, game in enumerate(game_repeater(EXAMPLE_MAZE, RandomGoody, RandomGoody, RandomBaddy)):
+    #for game_number, game in enumerate(game_repeater(EXAMPLE_MAZE, RandomGoody, RandomGoody, RandomBaddy)):
+    for game_number, game in enumerate(game_repeater(EXAMPLE_MAZE, MattGoody, RandomGoody, RandomBaddy)):
+    #for game_number, game in enumerate(game_repeater(EXAMPLE_MAZE, MattGoody, MattGoody, RandomBaddy)):
+
         if game_number == total_games:
             break
         result, _rounds = game.play()
@@ -69,6 +73,6 @@ def gui_example():
 
 if __name__ == "__main__":
     # Uncomment whichever example you want to run
-    text_example()
-    # stats_example(1000)
-    # gui_example()
+    #text_example()
+    stats_example(1000)
+    #gui_example()
